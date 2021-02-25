@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+<!-- 填充父类留出的部分 -->
+{% block content %}
+<!-- <p>{{ food_counts }} entries in total</p> -->
+
+<!-- 图片列表 -->
+<ul class="food-list">
+  {% for food in food_lists %}
+  <li>
+
+    {{ food.name }} - {{ food.ingredients }}
+
+  </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}
