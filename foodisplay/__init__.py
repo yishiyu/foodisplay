@@ -18,5 +18,5 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# 导入views.py,以注册视图函数
-from foodisplay import views
+# 导入各个子模块以完成注册
+from foodisplay import views,commands
