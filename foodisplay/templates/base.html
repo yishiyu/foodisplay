@@ -4,46 +4,68 @@
     {% block head %}
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 绕开防盗链 -->
+    <meta name="referrer" content="never" />
     <title>Foodisplay!</title>
-    <!-- 待填充的图标和CSS文件 -->
-    <!-- <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+    <!-- bootstrap -->
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='style.css') }}"
-      type="text/css"
-    /> -->
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
     {% endblock %}
   </head>
-  <body>
-    <!-- 标题栏 -->
-    <!-- <h2>
-      <img
-        alt="Avatar"
-        class="avatar"
-        src="{{ url_for('static', filename='images/avatar.png') }}"
-      />
-      Welcome to Foodisplay
-    </h2> -->
-
-    <!-- 渲染时传入的flash信息 -->
-    <!-- {% for message in get_flashed_messages() %}
-    <div class="alert">{{ message }}</div>
-    {% endfor %} -->
+  <body style="background-color: #f0f0f0">
 
     <!-- 导航栏 -->
-    <!-- <nav>
-    </nav> -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Foodisplay</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#"
+              >Home <span class="sr-only">(current)</span></a
+            >
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input
+            class="form-control mr-sm-2"
+            type="search"
+            placeholder="Search Food!"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+            Search
+          </button>
+        </form>
+      </div>
+    </nav>
 
     <!-- 子类填充的内容部分 -->
     {% block content %}{% endblock %}
 
     <!-- 网页下标 -->
-    <footer>
+    <footer style="margin:0 0%;text-align: center; background-color: #666666;">
       <!-- 按道理来说要加上网页备案信息的 -->
-      <small>
         &copy; 2021. by
         <a href="http://yishiyu.world">yishiyu</a>
-      </small>
     </footer>
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
   </body>
 </html>

@@ -4,14 +4,26 @@
 <!-- <p>{{ food_counts }} entries in total</p> -->
 
 <!-- 图片列表 -->
-<ul class="food-list">
-  {% for food in food_list %}
-  <li>
-
-    {{ food.FoodName }} - {{ food.Ingredients }}
-
-  </li>
-  {% endfor %}
-</ul>
+<div class="food-list" style="margin: 0 10%">
+  
+  <div class="container">
+    <!-- 卡片 -->
+    <div class="row">
+      {% for food in food_list %}
+      <div class="col-sm-4">
+        <div class="card" style="width: 18rem">
+          <img class="card-img-top" src="{{ food.MainPicture }}" />
+          <div class="card-body">
+            <h5 class="card-title">{{ food.FoodName }}</h5>
+            <p class="card-text">{{ food.Ingredients }}</p>
+            <a href="{{ food.Url }}" class="btn btn-primary">Go</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  
+</div>
 
 {% endblock %}
