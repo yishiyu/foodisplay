@@ -5,7 +5,6 @@
 
 <!-- 图片列表 -->
 <div class="food-list" style="margin: 0 10%">
-  
   <div class="container">
     <!-- 卡片 -->
     <div class="row">
@@ -22,8 +21,36 @@
       </div>
       {% endfor %}
     </div>
+
+    <!-- 分页 -->
+    <nav aria-label="...">
+      <!-- previous_pages:列表,之前的页 -->
+      <!-- current_page:数字,当前页 -->
+      <!-- next_pages:列表,之后的页 -->
+      <ul class="pagination">
+        {% for page in previous_pages %}
+        <li class="page-item">
+          <a class="page-link" href="/index/{{ page.index }}">
+            {{ page.index }}
+          </a>
+        </li>
+        {% endfor %}
+        <li class="page-item active">
+          <span class="page-link">
+            {{ current_page.index }}
+            <span class="sr-only">(current)</span>
+          </span>
+        </li>
+        {% for page in next_pages %}
+        <li class="page-item">
+          <a class="page-link" href="/index/{{ page.index }}">
+            {{ page.index }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </nav>
   </div>
-  
 </div>
 
 {% endblock %}
