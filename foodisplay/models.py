@@ -10,3 +10,6 @@ class Food(db.Model):
     Steps = db.Column(db.String(3000), nullable=True)
     StepPicture = db.Column(db.String(5000), nullable=True)
 
+class Page:
+    def __init__(self,index):
+        self.index = index
