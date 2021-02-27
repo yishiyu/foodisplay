@@ -5,15 +5,22 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-# SQLite URI compatible
-WIN = sys.platform.startswith('win')
-if WIN:
-    prefix = 'sqlite:///'
-else:
-    prefix = 'sqlite:////'
+# mysql URI compatible
+import pymysql
+pymysql.install_as_MySQLdb()
+# 读取配置文件
+import configparser
+config = configparser.ConfigParser()
+config.read("foodisplay.ini")
+prefix = 'mysql://'
+username = config['DATABASE']['username']
+passwd = config['DATABASE']['passwd']
+host = config['DATABASE']['host']
+databasename = config['DATABASE']['databasename']
+DATABASE_URI = '{}{}:{}@{}/{}'.format(prefix,username,passwd,host,databasename)
 
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev')
-app.config['SQLALCHEMY_DATABASE_URI'] = prefix + os.path.join(os.path.dirname(app.root_path), os.getenv('DATABASE_FILE', 'data.db'))
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)

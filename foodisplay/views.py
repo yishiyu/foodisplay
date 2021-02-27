@@ -4,5 +4,5 @@ from foodisplay.models import Food
 
 @app.route('/')
 def index():
-    food_lists = Food.query.all()
-    return render_template("index.html",food_lists = food_lists)
+    food_list = Food.query.limit(10)
+    return render_template("index.html",food_list=food_list)
