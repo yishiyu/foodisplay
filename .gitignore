@@ -2,3 +2,4 @@ __pycache__/
 foodisplay/__pycache__/
 data.db
 foodisplay.ini
+.vscode/
