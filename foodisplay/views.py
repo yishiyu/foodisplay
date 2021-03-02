@@ -63,3 +63,24 @@ def logout():
     logout_user()  # 登出用户
     flash('Goodbye.')
     return redirect(url_for('index'))  # 重定向回首页
+
+@app.route('/settings', methods=['GET', 'POST'])
+@login_required
+def settings():
+    if request.method == 'POST':
+        name = request.form['name']
+
+        if not name or len(name) > 20:
+            flash('Invalid input.')
+            return redirect(url_for('settings'))
+
+        current_user.Name = name
+        # current_user 会返回当前登录用户的数据库记录对象
+        # 等同于下面的用法
+        # user = User.query.first()
+        # user.name = name
+        db.session.commit()
+        flash('Settings updated.')
+        return redirect(url_for('index'))
+
+    return render_template('settings.html')

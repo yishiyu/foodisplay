@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+<!-- 填充父类留出的部分 -->
+{% block content %}
+<h3>Settings</h3>
+<form method="post">
+  Your Name
+  <input
+    type="text"
+    name="name"
+    autocomplete="off"
+    required
+    value="{{ current_user.Name }}"
+  />
+  <input class="btn" type="submit" name="submit" value="Save" />
+</form>
+{% endblock %}
