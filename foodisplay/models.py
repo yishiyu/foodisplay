@@ -1,6 +1,7 @@
 from foodisplay import db
 # 密码加密
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 
 
 class Food(db.Model):
@@ -18,7 +19,7 @@ class Page:
         self.index = index
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     UID = db.Column(db.Integer, primary_key=True, nullable=False)
     Name = db.Column(db.String(20), nullable=False)
     Passwd = db.Column(db.String(100), nullable=False)
@@ -31,3 +32,6 @@ class User(db.Model):
 
     def validate_password(self, raw_password):
         return check_password_hash(self.Passwd, raw_password)
+
+    def get_id(self):
+        return self.UID
