@@ -57,12 +57,14 @@ def login():
 
     return render_template('login.html')
 
+
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()  # 登出用户
     flash('Goodbye.')
     return redirect(url_for('index'))  # 重定向回首页
+
 
 @app.route('/settings', methods=['GET', 'POST'])
 @login_required
@@ -84,3 +86,9 @@ def settings():
         return redirect(url_for('index'))
 
     return render_template('settings.html')
+
+
+@app.route('/profile', methods=['GET', 'POST'])
+@login_required
+def profile():
+    return render_template('profile.html')

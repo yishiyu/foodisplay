@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+<!-- 填充父类留出的部分 -->
+{% block content %}
+<h3>Profile</h3>
+<ul>
+  <li>Account:{{ current_user.UID }}</li>
+  <li>Name:{{ current_user.Name }}</li>
+  <li>Region:{{ current_user.Region }}</li>
+  <li>Flavor:{{ current_user.Flavor }}</li>
+</ul>
+{% endblock %}
