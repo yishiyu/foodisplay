@@ -14,6 +14,7 @@
       align-self: center;
       text-align: left;
       padding: 15px 15px 15px 15px;
+      background-color: #f0f0f0;
     "
   >
     <form method="post">
@@ -38,9 +39,18 @@
           value="{{ current_user.Region }}"
         />
       </div>
-      <input class="btn btn-primary" type="submit" name="submit" value="Save" />
+      <div class="text-center">
+        <input
+          class="btn btn-primary btn-sm btn-block"
+          type="submit"
+          name="submit"
+          value="Save"
+        />
+      </div>
     </form>
   </div>
+
+  <br /><br />
 
   <!-- 修改密码 -->
   <div
@@ -50,6 +60,7 @@
       align-self: center;
       text-align: left;
       padding: 15px 15px 15px 15px;
+      background-color: #f0f0f0;
     "
   >
     <form method="post">
@@ -63,7 +74,14 @@
           placeholder="Password"
         />
       </div>
-      <input class="btn btn-primary" type="submit" name="submit" value="Save" />
+      <div class="text-center">
+        <input
+          class="btn btn-primary btn-sm btn-block"
+          type="submit"
+          name="submit"
+          value="Save"
+        />
+      </div>
     </form>
   </div>
 

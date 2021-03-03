@@ -24,7 +24,7 @@
     </div>
   </div> -->
   <div
-    class="profile-box border"
+    class="profile-box"
     style="
       margin: 0 5%;
       align-self: center;
@@ -56,7 +56,7 @@
             </div>
           </div>
         </div>
-        <div class="col-8" style="width: 40vh">
+        <div class="col-8 border" style="width: 40vh;background-color: #f0f0f0;">
           <canvas id="flavorRC"></canvas>
         </div>
       </div>
@@ -73,14 +73,21 @@
         "data": {{ current_user.FlavorRC.flavors }},
         "pointStyle": "circle",
         "pointRadius": 6,
-        "lineTension": 0.05
+        "lineTension": 0.05,
+        "pointBackgroundColor": "rgba(92,71,250, 0.4)",
+        "pointBorderColor": "rgba(92,71,250, 0.8)",
+        "backgroundColor": "rgba(39, 9, 160, 0.2)",
+        "borderColor": "rgba(39, 9, 160, 0.4)",
+        "borderWidth": 2,
+        "pointHoverBackgroundColor": "rgba(255, 0, 0, 0.8)",
+        "pointHoverRadius": 8
       }
     ],
   };
   var options = {
     scale: {
         angleLines: {
-            display: false
+            display: true
         },
         ticks: {
             min: 0,

@@ -1,7 +1,10 @@
-from foodisplay import app, db
+from foodisplay import app, db, photos, UploadForm
 from flask_login import login_user, login_required, logout_user, current_user
-from flask import render_template, request, url_for, redirect, flash
+from flask import render_template, request, url_for, redirect, flash, current_app
 from foodisplay.models import Food, Page, User
+from .recongnize import FoodNameSearch
+from foodisplay import LOCALPHOTODIR
+from collections import Counter
 
 PAGE_SIZE = 20
 
@@ -104,3 +107,45 @@ def settings():
 @login_required
 def profile():
     return render_template('profile.html')
+
+
+@app.route('/recongnition', methods=['GET', 'POST'])
+@login_required
+def recongnition():
+    form = UploadForm()
+    filename, foodname = None, None
+    if form.validate_on_submit():
+        filename = photos.save(form.photo.data)
+        file_url = photos.url(filename)
+    else:
+        file_url = None
+    current_app.logger.info("file:{}".format(file_url))
+
+    foodnames = []
+    foodlist = []
+    if filename is not None:
+        # 调用图片识别函数，返回食物名称
+        foodnames = FoodNameSearch(LOCALPHOTODIR + filename)
+        current_app.logger.info("foodnames:{}".format(foodnames))
+        # 从所有名字中提取出频率最高的字
+        counter = Counter()
+        for name in foodnames:
+            counter.update(name)
+        foodnames = str(foodnames)[1:-2]
+        current_app.logger.info(
+            "counter.most_common():{}".format(counter.most_common()))
+
+        foodlist = Food.query.filter(
+            Food.FoodName.like(
+                counter.most_common()[0][0]
+            )
+        ).limit(5).all()
+        for food in foodlist:
+            food.Ingredients = food.Ingredients.replace("|||||", '、')
+            food.Ingredients = food.Ingredients.replace('|', ' ')
+
+    return render_template('recongnition.html',
+                           form=form,
+                           file_url=file_url,
+                           foodlist=foodlist,
+                           foodnames=foodnames)

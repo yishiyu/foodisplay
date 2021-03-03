@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+<!-- 填充父类留出的部分 -->
+{% block content %}
+
+<div>
+  <div style="text-align: center">
+    <h3>Food Recongnition</h3>
+  </div>
+
+  <!-- 上传图片 -->
+  <div
+    class="settings-box border"
+    style="
+      margin: 0 30%;
+      align-self: center;
+      text-align: left;
+      padding: 15px 15px 15px 15px;
+      background-color: #f0f0f0;
+    "
+  >
+    <form method="post" enctype="multipart/form-data">
+      {{ form.hidden_tag() }}
+      <!-- {{ form.photo }} {{ form.submit }} -->
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <input
+            class="input-group-text"
+            id="submit"
+            type="submit"
+            name="submit"
+            value="Upload"
+          />
+        </div>
+        <div class="custom-file">
+          <input
+            name="photo"
+            type="file"
+            class="custom-file-input"
+            id="photo"
+          />
+          <label class="custom-file-label" for="photo">Choose file</label>
+        </div>
+      </div>
+    </form>
+    <div class="text-center">
+      {% if file_url %}
+      <label">{{ foodnames }}</label><br/>
+      <img src="{{ file_url }}" style="max-width: 50vh" />
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- 卡片 -->
+    <div class="row">
+      {% for food in foodlist %}
+      <div class="col-sm-4">
+        <div class="card" style="width: 18rem">
+          <img class="card-img-top" src="{{ food.MainPicture }}" />
+          <div class="card-body">
+            <h5 class="card-title">{{ food.FoodName }}</h5>
+            <p class="card-text">{{ food.Ingredients }}</p>
+            <a href="{{ food.Url }}" class="btn btn-primary">Go</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
