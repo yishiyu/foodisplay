@@ -1,6 +1,6 @@
-from foodisplay import app, db
+from foodisplay import app, db, photos, UploadForm
 from flask_login import login_user, login_required, logout_user, current_user
-from flask import render_template, request, url_for, redirect, flash
+from flask import render_template, request, url_for, redirect, flash, current_app
 from foodisplay.models import Food, Page, User
 
 PAGE_SIZE = 20
@@ -109,5 +109,12 @@ def profile():
 @app.route('/recongnition', methods=['GET', 'POST'])
 @login_required
 def recongnition():
-    
-    return render_template('recongnition.html')
+    form = UploadForm()
+    if form.validate_on_submit():
+        filename = photos.save(form.photo.data)
+        file_url = photos.url(filename)
+    else:
+        file_url = None
+    current_app.logger.info("file:{}".format(file_url))
+    return render_template('recongnition.html', form=form, file_url=file_url)
+

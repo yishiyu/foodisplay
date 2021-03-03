@@ -3,6 +3,10 @@ import sys
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
+from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileRequired, FileAllowed
+from wtforms import SubmitField
 
 app = Flask(__name__)
 
@@ -20,9 +24,21 @@ host = config['DATABASE']['host']
 databasename = config['DATABASE']['databasename']
 DATABASE_URI = '{}{}:{}@{}/{}'.format(prefix,username,passwd,host,databasename)
 
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev')
+app.config['SECRET_KEY'] = config['APPLICATION']['secretkey']
+app.config['UPLOADED_PHOTOS_DEST'] = config['APPLICATION']['uploadphotosdest']
+app.config['UPLOADED_PHOTOS_URL'] = config['APPLICATION']['uploadphotosurl']
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+photos = UploadSet('photos', IMAGES)
+configure_uploads(app, photos)
+patch_request_class(app)
+
+class UploadForm(FlaskForm):
+    photo = FileField(validators=[
+        FileAllowed(photos, u'只能上传图片！'), 
+        FileRequired(u'文件未选择！')])
+    submit = SubmitField(u'上传')
 
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)

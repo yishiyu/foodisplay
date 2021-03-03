@@ -18,11 +18,14 @@
       background-color: #f0f0f0;
     "
   >
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
+      {{ form.hidden_tag() }}
+      <!-- {{ form.photo }} {{ form.submit }} -->
       <div class="input-group mb-2">
         <div class="input-group-prepend">
           <input
             class="input-group-text"
+            id="submit"
             type="submit"
             name="submit"
             value="Upload"
@@ -30,15 +33,20 @@
         </div>
         <div class="custom-file">
           <input
-            name="file"
+            name="photo"
             type="file"
             class="custom-file-input"
-            id="InputFile"
+            id="photo"
           />
-          <label class="custom-file-label" for="InputFile">Choose file</label>
+          <label class="custom-file-label" for="photo">Choose file</label>
         </div>
       </div>
     </form>
+    <div class="text-center">
+      {% if file_url %}
+      <img src="{{ file_url }}" style="max-width: 50vh" />
+      {% endif %}
+    </div>
   </div>
 </div>
 
