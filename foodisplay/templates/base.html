@@ -16,7 +16,7 @@
     />
     {% endblock %}
   </head>
-  <body style="background-color: #f0f0f0">
+  <body style="background-color: #f0f0f0;" background="{{ url_for('static', filename='background_2.jpg') }}">
     <!-- 导航栏 -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <a class="navbar-brand" href="/">Foodisplay</a>
@@ -129,7 +129,7 @@
     <br />
     <br />
 
-    <div style="min-height: 90vh">
+    <div style="min-height: 90vh;">
       <!-- 子类填充的内容部分 -->
       {% block content %} {% endblock %}
     </div>
