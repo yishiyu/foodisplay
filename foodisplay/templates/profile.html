@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+<!-- 填充父类留出的部分 -->
+{% block content %}
+<div style="text-align: center">
+  <h3>Profile</h3>
+</div>
+<div
+  class="profile-box border"
+  style="
+    margin: 0 20%;
+    align-self: center;
+    text-align: center;
+    padding: 15px 15px 15px 15px;
+  "
+>
+  <ul>
+    <li>Account:{{ current_user.UID }}</li>
+    <li>Name:{{ current_user.Name }}</li>
+    <li>Region:{{ current_user.Region }}</li>
+    <li>Flavor:{{ current_user.Flavor }}</li>
+  </ul>
+</div>
+{% endblock %}
