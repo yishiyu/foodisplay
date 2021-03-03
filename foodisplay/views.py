@@ -104,3 +104,10 @@ def settings():
 @login_required
 def profile():
     return render_template('profile.html')
+
+
+@app.route('/recongnition', methods=['GET', 'POST'])
+@login_required
+def recongnition():
+    
+    return render_template('recongnition.html')
