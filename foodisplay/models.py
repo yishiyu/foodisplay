@@ -1,4 +1,5 @@
 from foodisplay import db, app
+from flask import current_app
 # 密码加密
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -20,10 +21,9 @@ class Page:
 
 
 class FlavorRC:
-    # 存放顺序:酸甜苦辣咸
-    flavors = []
-
     def __init__(self, flavors):
+        # 存放顺序:酸甜苦辣咸
+        self.flavors = []
         assert(isinstance(flavors, str))
         for f in flavors:
             self.flavors.append(
@@ -55,8 +55,9 @@ class User(db.Model, UserMixin):
 
     @property
     def FlavorRC(self):
-        return FlavorRC(self.Flavor)
+        return FlavorRC(str(self.Flavor))
 
     @FlavorRC.setter
     def FlavorRC(self, flavors):
+        current_app.logger.info('set user:{}\'s Flavor to{}'.format(self.UID, flavors))
         self.Flavor = str(flavors)

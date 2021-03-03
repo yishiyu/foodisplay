@@ -1,44 +1,51 @@
 {% extends 'base.html' %}
 <!-- 填充父类留出的部分 -->
 {% block content %}
-<div style="text-align: center">
-  <h3>Login</h3>
-</div>
+<div>
+  <div style="text-align: center">
+    <h3>Login</h3>
+  </div>
 
-<div
-  class="login-box border"
-  style="
-    margin: 0 20%;
-    align-self: center;
-    text-align: left;
-    padding: 15px 15px 15px 15px;
-  "
->
-  <!-- <div class="container">
-    <div class="row">
-      <div class="col-sm-4"> -->
-  <form method="post">
-    <div class="form-group">
-      <label for="InputAccount">Account</label>
+  <div
+    class="login-box border"
+    style="
+      margin: 0 20%;
+      align-self: center;
+      text-align: left;
+      padding: 15px 15px 15px 15px;
+    "
+  >
+    <!-- <div class="container">
+      <div class="row">
+        <div class="col-sm-4"> -->
+    <form method="post">
+      <div class="form-group">
+        <label for="InputAccount">Account</label>
+        <input
+          type="text"
+          class="form-control"
+          id="InputAccount"
+          name="account"
+          placeholder="Enter Account"
+        />
+      </div>
+      <div class="form-group">
+        <label for="InputPassword">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="InputPassword"
+          name="password"
+          placeholder="Password"
+        />
+      </div>
       <input
-        type="text"
-        class="form-control"
-        id="InputAccount"
-        name="account"
-        placeholder="Enter Account"
+        class="btn btn-primary"
+        type="submit"
+        name="submit"
+        value="Submit"
       />
-    </div>
-    <div class="form-group">
-      <label for="InputPassword">Password</label>
-      <input
-        type="password"
-        class="form-control"
-        id="InputPassword"
-        name="password"
-        placeholder="Password"
-      />
-    </div>
-    <input class="btn btn-primary" type="submit" name="submit" value="Submit" />
-  </form>
+    </form>
+  </div>
 </div>
 {% endblock %}

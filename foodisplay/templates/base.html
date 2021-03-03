@@ -18,7 +18,7 @@
   </head>
   <body style="background-color: #f0f0f0">
     <!-- 导航栏 -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <a class="navbar-brand" href="/">Foodisplay</a>
       <button
         class="navbar-toggler"
@@ -79,17 +79,20 @@
         </form>
       </div>
     </nav>
+    <br />
+    <br />
+    <br />
 
-    <!-- 子类填充的内容部分 -->
-    {% block content %}{% endblock %}
+    <div style="min-height: 90vh">
+      <!-- 子类填充的内容部分 -->
+      {% block content %} {% endblock %}
+    </div>
 
     <!-- 网页下标 -->
     <footer
       style="
         margin: 0 0%;
         text-align: center;
-        position: absolute;
-        bottom: 0;
         width: 100%;
         height: 25px;
         background-color: #ffc0cb;
