@@ -1,4 +1,4 @@
-from foodisplay import db
+from foodisplay import db, app
 # 密码加密
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -19,6 +19,23 @@ class Page:
         self.index = index
 
 
+class FlavorRC:
+    # 存放顺序:酸甜苦辣咸
+    flavors = []
+
+    def __init__(self, flavors):
+        assert(isinstance(flavors, str))
+        for f in flavors:
+            self.flavors.append(
+                min(max(int(f), 0), 5)
+            )
+
+    def __str__(self):
+        return ''.join(
+            map(str, self.flavors)
+        )
+
+
 class User(db.Model, UserMixin):
     UID = db.Column(db.Integer, primary_key=True, nullable=False)
     Name = db.Column(db.String(20), nullable=False)
@@ -35,3 +52,11 @@ class User(db.Model, UserMixin):
 
     def get_id(self):
         return self.UID
+
+    @property
+    def FlavorRC(self):
+        return FlavorRC(self.Flavor)
+
+    @FlavorRC.setter
+    def FlavorRC(self, flavors):
+        self.Flavor = str(flavors)
