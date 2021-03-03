@@ -44,10 +44,30 @@
     </form>
     <div class="text-center">
       {% if file_url %}
+      <label">{{ foodnames }}</label><br/>
       <img src="{{ file_url }}" style="max-width: 50vh" />
       {% endif %}
     </div>
   </div>
+
+  <div class="container">
+    <!-- 卡片 -->
+    <div class="row">
+      {% for food in foodlist %}
+      <div class="col-sm-4">
+        <div class="card" style="width: 18rem">
+          <img class="card-img-top" src="{{ food.MainPicture }}" />
+          <div class="card-body">
+            <h5 class="card-title">{{ food.FoodName }}</h5>
+            <p class="card-text">{{ food.Ingredients }}</p>
+            <a href="{{ food.Url }}" class="btn btn-primary">Go</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
 </div>
 
 {% endblock %}

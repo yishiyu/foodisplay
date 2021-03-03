@@ -29,6 +29,7 @@ app.config['UPLOADED_PHOTOS_DEST'] = config['APPLICATION']['uploadphotosdest']
 app.config['UPLOADED_PHOTOS_URL'] = config['APPLICATION']['uploadphotosurl']
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+LOCALPHOTODIR = config['APPLICATION']['localphotodir']
 
 photos = UploadSet('photos', IMAGES)
 configure_uploads(app, photos)
