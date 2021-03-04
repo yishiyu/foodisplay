@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+<!-- 填充父类留出的部分 -->
+{% block content %}
+<div class="alert alert-primary text-center" role="alert" style="margin: 0 20%;">
+  search for the "{{ search_content }}"
+</div>
+<br>
+<div class="alert alert-secondary text-center" role="alert" style="margin: 0 20%;">
+  {{ food_counts }} entries in total
+</div>
+
+<!-- 图片列表 -->
+<div class="food-list" style="margin: 0 10%">
+  <div class="container">
+    <!-- 卡片 -->
+    <div class="row">
+      {% for food in food_list %}
+      <div class="col-sm-4">
+        <div class="card" style="width: 18rem">
+          <img class="card-img-top" src="{{ food.MainPicture }}" />
+          <div class="card-body">
+            <h5 class="card-title">{{ food.FoodName }}</h5>
+            <p class="card-text">{{ food.Ingredients }}</p>
+            <a href="{{ food.Url }}" class="btn btn-primary">Go</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}
