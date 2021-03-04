@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block head %}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 绕开防盗链 -->
+    <meta name="referrer" content="never" />
+    <title>Foodisplay!</title>
+    <!-- bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    {% endblock %}
+  </head>
+  <body style="background-color: #f0f0f0;" background="{{ url_for('static', filename='background_2.jpg') }}">
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <a class="navbar-brand" href="/">Foodisplay</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">
+              Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/profile">
+              Profile
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/recongnition">
+              Recongnition
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/settings">
+              Settings
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+        </ul>
+
+        <form class="form-inline my-2 my-lg-0 ml-auto" action="/search" method="POST">
+          <input
+            class="form-control mr-sm-2"
+            type="search"
+            placeholder="Search Food!"
+            aria-label="Search"
+            name="search_content"
+          />
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+            Search
+          </button>
+        </form>
+
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            {% if current_user.is_authenticated %}
+            <div>
+              <a class="nav-link" href="/logout">
+                <svg
+                  t="1614756656079"
+                  class="icon"
+                  viewBox="0 0 1024 1024"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  p-id="3844"
+                  width="20"
+                  height="20"
+                >
+                  <path
+                    d="M320 192v106.432c-97.28 61.12-161.792 167.68-161.792 289.024 0 189.632 157.632 343.36 352 343.36 194.432 0 352-153.728 352-343.36 0-119.808-62.848-225.28-158.208-286.72V192c151.36 70.144 256 220.608 256 394.944C960 828.352 759.424 1024 512 1024s-448-195.648-448-437.056C64 412.608 168.64 262.144 320 192z m128-192h128v448H448V0z"
+                    fill="#262626"
+                    p-id="3845"
+                  ></path>
+                </svg>
+                Logout
+                <span class="sr-only">(current)</span>
+              </a>
+            </div>
+            {% else %}
+            <div>
+              <a class="nav-link" href="/login">
+                <svg
+                  t="1614756656079"
+                  class="icon"
+                  viewBox="0 0 1024 1024"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  p-id="3844"
+                  width="20"
+                  height="20"
+                >
+                  <path
+                    d="M320 192v106.432c-97.28 61.12-161.792 167.68-161.792 289.024 0 189.632 157.632 343.36 352 343.36 194.432 0 352-153.728 352-343.36 0-119.808-62.848-225.28-158.208-286.72V192c151.36 70.144 256 220.608 256 394.944C960 828.352 759.424 1024 512 1024s-448-195.648-448-437.056C64 412.608 168.64 262.144 320 192z m128-192h128v448H448V0z"
+                    fill="#262626"
+                    p-id="3845"
+                  ></path>
+                </svg>
+                Login&nbsp;&nbsp;&nbsp;
+                <span class="sr-only">(current)</span>
+              </a>
+            </div>
+            {% endif %}
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <br />
+    <br />
+    <br />
+
+    <div style="min-height: 90vh;">
+      <!-- 子类填充的内容部分 -->
+      {% block content %} {% endblock %}
+    </div>
+
+    <!-- 网页下标 -->
+    <footer
+      style="
+        margin: 0 0%;
+        text-align: center;
+        width: 100%;
+        height: 25px;
+        background-color: #ffc0cb;
+      "
+    >
+      <!-- 按道理来说要加上网页备案信息的 -->
+      &copy; 2021. by
+      <a href="http://yishiyu.world">yishiyu</a>
+    </footer>
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </body>
+</html>
