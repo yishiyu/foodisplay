@@ -174,3 +174,12 @@ def search():
                                 search_content=search_content,
                                 food_counts=min(len(food_list),PAGE_SIZE))
     return redirect(url_for('index'))
+
+@app.route('/Ingredient', methods=['GET', 'POST'])
+@login_required
+def Ingredient():
+
+    return render_template("search.html",
+                    food_list=food_list,
+                    search_content=search_content,
+                    food_counts=min(len(food_list), PAGE_SIZE))
