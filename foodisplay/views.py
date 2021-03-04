@@ -137,9 +137,9 @@ def recongnition():
 
         foodlist = Food.query.filter(
             Food.FoodName.like(
-                counter.most_common()[0][0]
+                '%{}%'.format(counter.most_common()[0][0])
             )
-        ).limit(5).all()
+        ).limit(PAGE_SIZE).all()
         for food in foodlist:
             food.Ingredients = food.Ingredients.replace("|||||", '、')
             food.Ingredients = food.Ingredients.replace('|', ' ')
@@ -149,3 +149,24 @@ def recongnition():
                            file_url=file_url,
                            foodlist=foodlist,
                            foodnames=foodnames)
+
+
+@app.route('/search', methods=['GET', 'POST'])
+@login_required
+def search():
+    if request.method == 'POST':
+        if 'search_content' in request.form:
+            search_content = request.form['search_content']
+            food_list = Food.query.filter(
+                Food.FoodName.like(
+                    '%{}%'.format(str(search_content))
+                )
+            ).limit(PAGE_SIZE).all()
+            for food in food_list:
+                food.Ingredients = food.Ingredients.replace("|||||", '、')
+                food.Ingredients = food.Ingredients.replace('|', ' ')
+            return render_template("search.html",
+                                food_list=food_list,
+                                search_content=search_content,
+                                food_counts=min(len(food_list),PAGE_SIZE))
+    return redirect(url_for('index'))
