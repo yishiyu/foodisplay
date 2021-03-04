@@ -6,7 +6,7 @@ from .recongnize import FoodNameSearch
 from foodisplay import LOCALPHOTODIR
 from collections import Counter
 
-PAGE_SIZE = 20
+PAGE_SIZE = 21
 
 
 @app.route('/')
@@ -128,18 +128,21 @@ def recongnition():
         foodnames = FoodNameSearch(LOCALPHOTODIR + filename)
         current_app.logger.info("foodnames:{}".format(foodnames))
         # 从所有名字中提取出频率最高的字
-        counter = Counter()
-        for name in foodnames:
-            counter.update(name)
-        foodnames = str(foodnames)[1:-2]
-        current_app.logger.info(
-            "counter.most_common():{}".format(counter.most_common()))
+        # counter = Counter()
+        # for name in foodnames:
+        #     counter.update(name)
+        # foodnames = str(foodnames)[1:-2]
+        # current_app.logger.info(
+        #     "counter.most_common():{}".format(counter.most_common()))
 
         foodlist = Food.query.filter(
             Food.FoodName.like(
-                '%{}%'.format(counter.most_common()[0][0])
+                '%{}%'.format(foodnames[0])
             )
         ).limit(PAGE_SIZE).all()
+
+        ##----在这里进行修改操作
+
         for food in foodlist:
             food.Ingredients = food.Ingredients.replace("|||||", '、')
             food.Ingredients = food.Ingredients.replace('|', ' ')
@@ -151,6 +154,7 @@ def recongnition():
                            foodnames=foodnames)
 
 
+#查找
 @app.route('/search', methods=['GET', 'POST'])
 @login_required
 def search():
