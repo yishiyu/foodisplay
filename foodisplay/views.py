@@ -1,7 +1,7 @@
 from foodisplay import app, db, photos, UploadForm
 from flask_login import login_user, login_required, logout_user, current_user
 from flask import render_template, request, url_for, redirect, flash, current_app
-from foodisplay.models import Food, Page, User
+from foodisplay.models import Food, Page, User,Ingredient_inf
 from .recongnize import FoodNameSearch
 from foodisplay import LOCALPHOTODIR
 from collections import Counter
@@ -175,11 +175,10 @@ def search():
                                 food_counts=min(len(food_list),PAGE_SIZE))
     return redirect(url_for('index'))
 
+#返回菜品相关信息
 @app.route('/Ingredient', methods=['GET', 'POST'])
 @login_required
 def Ingredient():
-
-    return render_template("search.html",
-                    food_list=food_list,
-                    search_content=search_content,
-                    food_counts=min(len(food_list), PAGE_SIZE))
+    Ingredient_list = Ingredient_inf.query.limit(PAGE_SIZE)
+    return render_template("Ingredient.html",
+                    Ingredient_list= Ingredient_list[0])
