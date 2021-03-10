@@ -1,12 +1,12 @@
 from foodisplay import app, db, photos, UploadForm
 from flask_login import login_user, login_required, logout_user, current_user
 from flask import render_template, request, url_for, redirect, flash, current_app
-from foodisplay.models import Food, Page, User
+from foodisplay.models import Food, Page, User,Ingredient_inf
 from .recongnize import FoodNameSearch
 from foodisplay import LOCALPHOTODIR
 from collections import Counter
 
-PAGE_SIZE = 20
+PAGE_SIZE = 21
 
 
 @app.route('/')
@@ -128,18 +128,21 @@ def recongnition():
         foodnames = FoodNameSearch(LOCALPHOTODIR + filename)
         current_app.logger.info("foodnames:{}".format(foodnames))
         # 从所有名字中提取出频率最高的字
-        counter = Counter()
-        for name in foodnames:
-            counter.update(name)
-        foodnames = str(foodnames)[1:-2]
-        current_app.logger.info(
-            "counter.most_common():{}".format(counter.most_common()))
+        # counter = Counter()
+        # for name in foodnames:
+        #     counter.update(name)
+        # foodnames = str(foodnames)[1:-2]
+        # current_app.logger.info(
+        #     "counter.most_common():{}".format(counter.most_common()))
 
         foodlist = Food.query.filter(
             Food.FoodName.like(
-                '%{}%'.format(counter.most_common()[0][0])
+                '%{}%'.format(foodnames[0])
             )
         ).limit(PAGE_SIZE).all()
+
+        ##----在这里进行修改操作
+
         for food in foodlist:
             food.Ingredients = food.Ingredients.replace("|||||", '、')
             food.Ingredients = food.Ingredients.replace('|', ' ')
@@ -151,6 +154,7 @@ def recongnition():
                            foodnames=foodnames)
 
 
+#查找
 @app.route('/search', methods=['GET', 'POST'])
 @login_required
 def search():
@@ -170,3 +174,11 @@ def search():
                                 search_content=search_content,
                                 food_counts=min(len(food_list),PAGE_SIZE))
     return redirect(url_for('index'))
+
+#返回菜品相关信息
+@app.route('/Ingredient', methods=['GET', 'POST'])
+@login_required
+def Ingredient():
+    Ingredient_list = Ingredient_inf.query.limit(PAGE_SIZE)
+    return render_template("Ingredient.html",
+                    Ingredient_list= Ingredient_list[0])

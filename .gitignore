@@ -1,6 +1,7 @@
 __pycache__/
 foodisplay/__pycache__/
 data.db
+.env
 foodisplay.ini
 .vscode/
 _uploads/

@@ -1,5 +1,6 @@
 import os
 import sys
+import sqlalchemy
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -42,6 +43,7 @@ class UploadForm(FlaskForm):
     submit = SubmitField(u'上传')
 
 db = SQLAlchemy(app)
+
 login_manager = LoginManager(app)
 
 from foodisplay.models import User

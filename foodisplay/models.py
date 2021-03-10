@@ -61,3 +61,14 @@ class User(db.Model, UserMixin):
     def FlavorRC(self, flavors):
         current_app.logger.info('set user:{}\'s Flavor to{}'.format(self.UID, flavors))
         self.Flavor = str(flavors)
+
+class Ingredient_inf(db.Model):
+    uid = db.Column(db.BIGINT, primary_key=True, nullable=False)
+    name = db.Column(db.String, nullable=False)
+    sour = db.Column(db.INTEGER, nullable=True)
+    sweet = db.Column(db.INTEGER, nullable=True)
+    bitter = db.Column(db.INTEGER, nullable=True)
+    spicy = db.Column(db.INTEGER, nullable=True)
+    hemp = db.Column(db.INTEGER, nullable=True)
+    salty = db.Column(db.INTEGER, nullable=True)
+    url = db.Column(db.INTEGER, nullable=True)
